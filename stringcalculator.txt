@@ -1,0 +1,78 @@
+package stringcalculator;
+import java.util.List;
+import java.util.ArrayList;
+
+public class StringCalculator {
+
+	/**
+	 * @param args
+	 */
+	public static final int MAXVAL = 1000;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	int Add(String numbers) {
+		if(numbers.equals("")) 
+		{
+			return 0;
+		}
+		List<Integer>listOfNumbers=toString(numbers);
+        negativeTest(listOfNumbers);
+        List<Integer>newListOfNumbers=bigNumbers(listOfNumbers);
+         	return sum(newListOfNumbers);
+    }
+	
+	private List<Integer> toString(String input) {
+		List<Integer> list = new ArrayList<Integer>();
+		String [] numbers = input.split("[,\n;//+-*! ]");
+		 if(numbers.length>2) 
+		 {
+    		 throw new IllegalArgumentException("The list cannot contain more than 2 numbers");
+    	 }
+    	 else 
+    	 {
+    		 for(int i=0; i<numbers.length; i++) {
+    			 list.add(Integer.parseInt(numbers[i]));
+    		 }
+    	 }
+    	 return list;
+    }
+	
+	private List<Integer> bigNumbers(List<Integer> list) {
+	    List<Integer> noBigNumbers = new ArrayList<Integer>();
+    	for (Integer n : list) 
+    	{
+            if (n<=MAXVAL) 
+            {
+                noBigNumbers.add(n);
+            }
+        }
+        return noBigNumbers;
+    }
+	
+	private int sum(List<Integer> num) {
+	   int sum=0;
+	   for (Integer k:num) {
+	        sum=sum+k;
+	    }
+	      return sum;
+	}
+	
+	private void negativeTest(List<Integer> numbers) {
+		List<Integer>negNumbers = new ArrayList<Integer>();
+		for (Integer k:numbers) 
+		{
+	        if (k<0) 
+	        {
+	            negNumbers.add(k);
+	        }
+	    }
+	    if (!(negNumbers.isEmpty())) 
+	    {
+	         throw new IllegalArgumentException("Negatives not allowed: "+negNumbers);
+	    }
+	}
+}
